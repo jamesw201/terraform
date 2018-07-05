@@ -40,6 +40,8 @@ type ConfigTransformer struct {
 }
 
 func (t *ConfigTransformer) Transform(g *Graph) error {
+	fmt.Println("[TRACE] ConfigTransformer: Starting transform")
+	log.Printf("[TRACE] ConfigTransformer: Starting transform")
 	// Lock since we use some internal state
 	t.l.Lock()
 	defer t.l.Unlock()
@@ -92,7 +94,7 @@ func (t *ConfigTransformer) transform(g *Graph, m *module.Tree) error {
 }
 
 func (t *ConfigTransformer) transformSingle(g *Graph, m *module.Tree) error {
-	log.Printf("[TRACE] ConfigTransformer: Starting for path: %v", m.Path())
+	fmt.Println("[TRACE] ConfigTransformer: Starting for path: %v", m.Path())
 
 	// Get the configuration for this module
 	conf := m.Config()
@@ -102,6 +104,8 @@ func (t *ConfigTransformer) transformSingle(g *Graph, m *module.Tree) error {
 
 	// Write all the resources out
 	for _, r := range conf.Resources {
+		fmt.Println("resource: %#v", r.RawConfig.Raw)
+
 		// Build the resource address
 		addr, err := parseResourceAddressConfig(r)
 		if err != nil {
@@ -121,7 +125,7 @@ func (t *ConfigTransformer) transformSingle(g *Graph, m *module.Tree) error {
 		}
 
 		// Build the abstract node and the concrete one
-		abstract := &NodeAbstractResource{Addr: addr}
+		abstract := &NodeAbstractResource{Addr: addr, Config: r} // added resource details to node
 		var node dag.Vertex = abstract
 		if f := t.Concrete; f != nil {
 			node = f(abstract)

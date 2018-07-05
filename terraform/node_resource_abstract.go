@@ -235,13 +235,39 @@ func (n *NodeAbstractResource) AttachResourceConfig(c *config.Resource) {
 	n.Config = c
 }
 
+func typeAsString(i interface{}) string {
+	var bla string
+
+	switch v := i.(type) {
+	case int:
+		bla = fmt.Sprintf("%d", v)
+	case float64:
+		bla = fmt.Sprintf("%f", v)
+	case string:
+		bla = fmt.Sprintf("%s", v)
+	default:
+		// i isn't one of the types above
+	}
+
+	return bla
+}
+
+func KeysString(m map[string]interface{}) string {
+	keys := make([]string, 0, len(m))
+	for k, v := range m {
+		keys = append(keys, k+":"+typeAsString(v))
+	}
+	return "[" + strings.Join(keys, ", ") + "]"
+}
+
 // GraphNodeDotter impl.
 func (n *NodeAbstractResource) DotNode(name string, opts *dag.DotOpts) *dag.DotNode {
 	return &dag.DotNode{
 		Name: name,
 		Attrs: map[string]string{
-			"label": n.Name(),
-			"shape": "box",
+			"label":  n.Name(),
+			"config": KeysString(n.Config.RawConfig.Raw),
+			"shape":  "box",
 		},
 	}
 }
