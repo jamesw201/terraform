@@ -257,7 +257,7 @@ func KeysString(m map[string]interface{}) string {
 	for k, v := range m {
 		keys = append(keys, k+":"+typeAsString(v))
 	}
-	return "[" + strings.Join(keys, ", ") + "]"
+	return "{" + strings.Join(keys, ", ") + "}"
 }
 
 // GraphNodeDotter impl.

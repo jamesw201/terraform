@@ -104,7 +104,7 @@ func (t *ConfigTransformer) transformSingle(g *Graph, m *module.Tree) error {
 
 	// Write all the resources out
 	for _, r := range conf.Resources {
-		fmt.Println("resource: %#v", r.RawConfig.Raw)
+		// fmt.Println("resource: %#v", r.RawConfig.Raw)
 
 		// Build the resource address
 		addr, err := parseResourceAddressConfig(r)
