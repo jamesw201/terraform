@@ -245,8 +245,11 @@ func typeAsString(i interface{}) string {
 		bla = fmt.Sprintf("%f", v)
 	case string:
 		bla = fmt.Sprintf("%s", v)
+	case bool:
+		bla = fmt.Sprintf("%v", v)
 	default:
 		// i isn't one of the types above
+		bla = fmt.Sprintf("%v", v)
 	}
 
 	return bla
