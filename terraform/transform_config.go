@@ -3,7 +3,6 @@ package terraform
 import (
 	"errors"
 	"fmt"
-	"log"
 	"sync"
 
 	"github.com/hashicorp/terraform/config"
@@ -40,8 +39,6 @@ type ConfigTransformer struct {
 }
 
 func (t *ConfigTransformer) Transform(g *Graph) error {
-	fmt.Println("[TRACE] ConfigTransformer: Starting transform")
-	log.Printf("[TRACE] ConfigTransformer: Starting transform")
 	// Lock since we use some internal state
 	t.l.Lock()
 	defer t.l.Unlock()
@@ -94,7 +91,7 @@ func (t *ConfigTransformer) transform(g *Graph, m *module.Tree) error {
 }
 
 func (t *ConfigTransformer) transformSingle(g *Graph, m *module.Tree) error {
-	fmt.Println("[TRACE] ConfigTransformer: Starting for path: %v", m.Path())
+	// fmt.Println("[TRACE] ConfigTransformer: Starting for path: %v", m.Path())
 
 	// Get the configuration for this module
 	conf := m.Config()

@@ -37,6 +37,7 @@ func (b *BasicGraphBuilder) Build(path []string) (*Graph, error) {
 	defer debugBuf.Close()
 
 	for _, step := range b.Steps {
+		// fmt.Println("in step: ", fmt.Sprintf("%T", step))
 		if step == nil {
 			continue
 		}
@@ -48,6 +49,11 @@ func (b *BasicGraphBuilder) Build(path []string) (*Graph, error) {
 		}
 
 		debugOp := g.DebugOperation(stepName, "")
+
+		log.Printf(
+			"[TRACE] BasicGraphBuilder graph before step %T:\n\n%s",
+			step, g.StringWithNodeTypes())
+
 		err := step.Transform(g)
 
 		errMsg := ""
@@ -57,7 +63,7 @@ func (b *BasicGraphBuilder) Build(path []string) (*Graph, error) {
 		debugOp.End(errMsg)
 
 		log.Printf(
-			"[TRACE] Graph after step %T:\n\n%s",
+			"[TRACE] BasicGraphBuilder graph after step %T:\n\n%s",
 			step, g.StringWithNodeTypes())
 
 		if err != nil {

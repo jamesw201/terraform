@@ -122,6 +122,8 @@ func wrappedMain() int {
 	log.Printf("[INFO] Go runtime version: %s", runtime.Version())
 	log.Printf("[INFO] CLI args: %#v", os.Args)
 
+	log.Printf("[DEBUG] ********  LOOK HERE  ********:")
+
 	config, diags := LoadConfig()
 	if len(diags) > 0 {
 		// Since we haven't instantiated a command.Meta yet, we need to do

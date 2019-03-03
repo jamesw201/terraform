@@ -258,10 +258,19 @@ func typeAsString(i interface{}) string {
 func KeysString(m map[string]interface{}) string {
 	keys := make([]string, 0, len(m))
 	for k, v := range m {
-		keys = append(keys, k+":"+typeAsString(v))
+		keys = append(keys, "\""+k+"\""+":"+"\""+typeAsString(v)+"\"")
+		// keys = append(keys, k+":"+typeAsString(v))
 	}
 	return "{" + strings.Join(keys, ", ") + "}"
 }
+ 
+// // GraphNodeAttachResourceSchema impl
+// func (n *NodeAbstractResource) AttachResourceSchema(schema *configschema.Block, version uint64) {
+// 	n.Schema = schema
+// 	n.SchemaVersion = version
+// }
+
+// TODO: create serialised json in each node which perfectly describes the attributes of the resource
 
 // GraphNodeDotter impl.
 func (n *NodeAbstractResource) DotNode(name string, opts *dag.DotOpts) *dag.DotNode {

@@ -1,6 +1,7 @@
 package terraform
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/hashicorp/terraform/config"
@@ -42,6 +43,7 @@ type RefreshGraphBuilder struct {
 
 // See GraphBuilder
 func (b *RefreshGraphBuilder) Build(path []string) (*Graph, error) {
+	fmt.Println("graph_builder_refresh.Build()")
 	return (&BasicGraphBuilder{
 		Steps:    b.Steps(),
 		Validate: b.Validate,

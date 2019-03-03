@@ -463,7 +463,7 @@ func (t *ProviderConfigTransformer) transform(g *Graph, m *module.Tree) error {
 }
 
 func (t *ProviderConfigTransformer) transformSingle(g *Graph, m *module.Tree) error {
-	log.Printf("[TRACE] ProviderConfigTransformer: Starting for path: %v", m.Path())
+	// log.Printf("[TRACE] ProviderConfigTransformer: Starting for path: %v", m.Path())
 
 	// Get the configuration for this module
 	conf := m.Config()

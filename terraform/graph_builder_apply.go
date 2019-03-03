@@ -1,6 +1,8 @@
 package terraform
 
 import (
+	"fmt"
+
 	"github.com/hashicorp/terraform/config/module"
 	"github.com/hashicorp/terraform/dag"
 )
@@ -46,6 +48,7 @@ type ApplyGraphBuilder struct {
 
 // See GraphBuilder
 func (b *ApplyGraphBuilder) Build(path []string) (*Graph, error) {
+	fmt.Println("node_resource_apply.Build()")
 	return (&BasicGraphBuilder{
 		Steps:    b.Steps(),
 		Validate: b.Validate,
